@@ -9,7 +9,7 @@ public class HallBookingSystem {
     private static final String RED = "\u001B[31m";
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         int row = 0, col = 0;
         String[][] h = null;
         String[] bookingHistory = new String[100];
@@ -26,16 +26,16 @@ public class HallBookingSystem {
             System.out.println(RED + "[5]" + RESET + " View Booking History");
             System.out.println(RED + "[0]" + RESET + " Exit");
             System.out.println("--------------------------------------------------");
-            System.out.print(GREEN + "[+]" + RESET + " Insert option: ");
+            System.out.print(GREEN + "[+]" + RESET + " Select option: ");
 
             int choice;
             while (true) {
-                if (sc.hasNextInt()) {
-                    choice = sc.nextInt();
+                if (scanner.hasNextInt()) {
+                    choice = scanner.nextInt();
                     break;
                 }
                 System.out.println("[!] Invalid input. Please enter a valid option.");
-                sc.nextLine();
+                scanner.nextLine();
             }
 
             switch (choice) {
@@ -43,21 +43,21 @@ public class HallBookingSystem {
                     System.out.println("==========> Set up hall <==========");
                     while (true) {
                         System.out.print("[+] Enter number of rows (1-26): ");
-                        if (sc.hasNextInt()) {
-                            row = sc.nextInt();
+                        if (scanner.hasNextInt()) {
+                            row = scanner.nextInt();
                             if (row > 0 && row <= 26) break;
                         }
                         System.out.println("[!] Invalid input. Please enter a number between 1 and 26.");
-                        sc.nextLine();
+                        scanner.nextLine();
                     }
                     while (true) {
                         System.out.print("[+] Enter number of columns (1-50): ");
-                        if (sc.hasNextInt()) {
-                            col = sc.nextInt();
+                        if (scanner.hasNextInt()) {
+                            col = scanner.nextInt();
                             if (col > 0 && col <= 50) break;
                         }
                         System.out.println("[!] Invalid input. Please enter a number between 1 and 50.");
-                        sc.nextLine();
+                        scanner.nextLine();
                     }
 
                     h = new String[row][col];
@@ -66,7 +66,7 @@ public class HallBookingSystem {
                         for (int j = 0; j < col; j++) {
                             h[i][j] = prefix + "-" + (j + 1) + ": AV";
                         }
-                        prefix++;
+                        prefix++; // switch prefix (A --> B --> C)
                     }
 
                     System.out.println("[!] Hall setup complete.");
@@ -103,7 +103,7 @@ public class HallBookingSystem {
                     }
 
                     System.out.print("[+] Enter seat code (e.g., A-1, B-1): ");
-                    String seat = sc.next();
+                    String seat = scanner.next();
                     boolean booked = false;
 
                     for (int i = 0; i < row; i++) {
@@ -145,7 +145,7 @@ public class HallBookingSystem {
                     }
 
                     System.out.print("[+] Enter seat code to cancel booking (e.g., A-1, B-1): ");
-                    String seat = sc.next();
+                    String seat = scanner.next();
                     boolean canceled = false;
 
                     for (int i = 0; i < row; i++) {
@@ -185,7 +185,7 @@ public class HallBookingSystem {
 
                 case 0: {
                     System.out.println(RED + "[*] System Closed. Goodbye!");
-                    sc.close();
+                    scanner.close();
                     System.exit(0);
                 }
 
