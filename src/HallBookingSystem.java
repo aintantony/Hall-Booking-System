@@ -11,7 +11,7 @@ public class HallBookingSystem {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int row = 0, col = 0;
-        String[][] h = null;
+        String[][] hall = null;
         String[] bookingHistory = new String[100];
         int bookingCount = 0;
 
@@ -56,15 +56,15 @@ public class HallBookingSystem {
                             col = scanner.nextInt();
                             if (col > 0 && col <= 50) break;
                         }
-                        System.out.println("[!] Invalid input. Please enter a number between 1 and 50.");
+                        System.out.println(RED + "[!] Invalid input. Please enter a number between 1 and 50." + RESET);
                         scanner.nextLine();
                     }
 
-                    h = new String[row][col];
+                    hall = new String[row][col];
                     char prefix = 'A';
                     for (int i = 0; i < row; i++) {
                         for (int j = 0; j < col; j++) {
-                            h[i][j] = prefix + "-" + (j + 1) + ": AV";
+                            hall[i][j] = prefix + "-" + (j + 1) + ": AV";
                         }
                         prefix++; // switch prefix (A --> B --> C)
                     }
@@ -75,12 +75,12 @@ public class HallBookingSystem {
 
                 case 2: {
                     System.out.println("==========> List All Halls <==========");
-                    if (h == null || row == 0 || col == 0) {
+                    if (hall == null || row == 0 || col == 0) {
                         System.out.println("[!] No halls available. Please set up a hall first.");
                     } else {
                         for (int i = 0; i < row; i++) {
                             for (int j = 0; j < col; j++) {
-                                System.out.print(" | " + h[i][j]);
+                                System.out.print(" | " + hall[i][j]);
                             }
                             System.out.println(" |");
                         }
@@ -89,7 +89,7 @@ public class HallBookingSystem {
                 }
 
                 case 3: {
-                    if (h == null || row == 0 || col == 0) {
+                    if (hall == null || row == 0 || col == 0) {
                         System.out.println("[!] No halls available. Please set up a hall first.");
                         break;
                     }
@@ -97,7 +97,7 @@ public class HallBookingSystem {
                     System.out.println("==========> Booking <==========");
                     for (int i = 0; i < row; i++) {
                         for (int j = 0; j < col; j++) {
-                            System.out.print(" | " + h[i][j]);
+                            System.out.print(" | " + hall[i][j]);
                         }
                         System.out.println(" |");
                     }
@@ -108,12 +108,12 @@ public class HallBookingSystem {
 
                     for (int i = 0; i < row; i++) {
                         for (int j = 0; j < col; j++) {
-                            if (h[i][j].startsWith(seat)) {
-                                if (h[i][j].endsWith(": BO")) {
+                            if (hall[i][j].startsWith(seat)) {
+                                if (hall[i][j].endsWith(": BO")) {
                                     System.out.println("[!] Seat already booked.");
                                 } else {
                                     System.out.println("[!] Booking successful for seat: " + seat);
-                                    h[i][j] = seat + ": BO";
+                                    hall[i][j] = seat + ": BO";
                                     String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
                                     bookingHistory[bookingCount++] = "Seat: " + seat + " | Date: " + time;
                                 }
@@ -131,7 +131,7 @@ public class HallBookingSystem {
                 }
 
                 case 4: {
-                    if (h == null || row == 0 || col == 0) {
+                    if (hall == null || row == 0 || col == 0) {
                         System.out.println("[!] No halls available. Please set up a hall first.");
                         break;
                     }
@@ -139,7 +139,7 @@ public class HallBookingSystem {
                     System.out.println("==========> Cancel Booking <==========");
                     for (int i = 0; i < row; i++) {
                         for (int j = 0; j < col; j++) {
-                            System.out.print(" | " + h[i][j]);
+                            System.out.print(" | " + hall[i][j]);
                         }
                         System.out.println(" |");
                     }
@@ -150,12 +150,12 @@ public class HallBookingSystem {
 
                     for (int i = 0; i < row; i++) {
                         for (int j = 0; j < col; j++) {
-                            if (h[i][j].startsWith(seat)) {
-                                if (h[i][j].endsWith(": AV")) {
+                            if (hall[i][j].startsWith(seat)) {
+                                if (hall[i][j].endsWith(": AV")) {
                                     System.out.println("[!] Seat is not booked.");
                                 } else {
                                     System.out.println("[!] Booking canceled for seat: " + seat);
-                                    h[i][j] = seat + ": AV";
+                                    hall[i][j] = seat + ": AV";
                                 }
                                 canceled = true;
                                 break;
